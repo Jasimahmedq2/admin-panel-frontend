@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../redux/features/auth/authApiSlice";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Registration = () => {
     const navigate = useNavigate()
@@ -30,6 +31,7 @@ const Registration = () => {
                     phoneNo: data.phoneNo,
                     password: data.password,
                     birthday: data.birthday,
+                    role: data?.role,
                     image: result?.data?.url || ""
                 }
                 registerUser(postInfo)
@@ -42,7 +44,7 @@ const Registration = () => {
 
         if (isSuccess) {
             navigate('/login')
-
+            toast("check email to verify your email")
         }
     }, [isLoading])
 
@@ -91,6 +93,13 @@ const Registration = () => {
                         <input {...register("birthday", { required: { value: true, message: "birthday is required" } })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="date" placeholder="date of birth" />
 
                         {errors.birthday?.type === 'required' && <p className="text-red-500 text-xs italic">{errors.birthday.message}</p>}
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
+                            User Role
+                        </label>
+                        <input {...register("role")} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="user role" />
                     </div>
 
                     <div className="mb-4">

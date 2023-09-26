@@ -9,7 +9,7 @@ const RequireAdmin = ({ children }) => {
 
   const { isLogin, loginUser } = useSelector((state) => state.auth);
 
-  if (!isLogin || loginUser.isVerified || loginUser.role !== "admin") {
+  if (!isLogin || !loginUser.isVerified || loginUser.role !== "admin") {
     toast("this route only for admin, you can't access the route")
     return <Navigate to="/" state={{ from: location }} replace></Navigate>;
   }
